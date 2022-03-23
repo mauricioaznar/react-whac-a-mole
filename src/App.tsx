@@ -1,58 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, {useState} from 'react';
 import './App.css';
+import CustomThemeProvider from "./components/views/custom-theme-provider";
+import {Box} from "@mui/material";
+import Counter from "./components/dum/counter/counter";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    const [score, setScore] = useState(0)
+
+    return (
+        <CustomThemeProvider>
+            <Box sx={{
+                position: "absolute",
+                left: "10px",
+                top: "10px",
+            }}>
+                <Counter callback={() => { console.log('time is over!!!') }} initialTime={10}/>
+                <Box>score { score }</Box>
+            </Box>
+            <Box className={'layout'}>
+                <Box className={'box-container'}>
+                    <Box className={'box active'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                    <Box className={'box'}/>
+                </Box>
+            </Box>
+        </CustomThemeProvider>
+    );
 }
 
 export default App;
