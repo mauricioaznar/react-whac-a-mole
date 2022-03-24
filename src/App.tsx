@@ -4,18 +4,21 @@ import CustomThemeProvider from "./components/views/custom-theme-provider";
 import {Box} from "@mui/material";
 import Counter from "./components/dum/counter/counter";
 
+const initialIntervalCount = 10
+
 function App() {
     const [score, setScore] = useState(0)
     const [activeIndex, setActiveIndex] = useState<null | number>(null)
     const [isFinished, setIsFinished] = useState(false)
-    const [transistor, setTransistor] = useState(0)
+    const [transistor, setTransistor] = useState(initialIntervalCount)
     const swtchRef = useRef<boolean>(false)
 
 
-    function handleInterval() {
+    function handleInterval(count: number) {
+        console.log(count)
+        setTransistor(count)
+
         if (!isFinished) {
-            setTransistor(transistor + 1)
-            // console.log(transistor, swtchRef.current)
             if (swtchRef.current) {
                 setActiveIndex(Math.floor(Math.random() * 9))
             } else {
@@ -48,7 +51,7 @@ function App() {
                 onChangeCount={handleInterval}
                 onStartCount={handleInterval}
                 defaultInterval={500}
-                initialCount={10}
+                initialCount={initialIntervalCount}
             />
             <Box sx={{
                 position: "absolute",
