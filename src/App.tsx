@@ -15,7 +15,6 @@ function App() {
 
 
     function handleInterval(count: number) {
-        console.log(count)
         setTransistor(count)
 
         if (!isFinished) {
@@ -24,8 +23,6 @@ function App() {
             } else {
                 setActiveIndex(null)
             }
-
-
             swtchRef.current = !swtchRef.current
         }
 
