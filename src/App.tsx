@@ -39,7 +39,6 @@ function App() {
         setIsFinished(true)
         setActiveIndex(null)
     }
-    
 
     return (
         <CustomThemeProvider>
