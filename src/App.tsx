@@ -61,9 +61,6 @@ function App() {
                 />
 
                 <Box>score { score } </Box>
-                <Box>
-                    bool { swtchRef.current.toString() }
-                </Box>
             </Box>
             <Box className={'layout'}>
                 <Box className={'box-container'}>
