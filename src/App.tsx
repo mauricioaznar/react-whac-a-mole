@@ -15,7 +15,7 @@ function App() {
     function handleInterval() {
         if (!isFinished) {
             setTransistor(transistor + 1)
-            console.log(transistor, swtchRef.current)
+            // console.log(transistor, swtchRef.current)
             if (swtchRef.current) {
                 setActiveIndex(Math.floor(Math.random() * 9))
             } else {

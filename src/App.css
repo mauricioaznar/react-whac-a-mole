@@ -10,7 +10,7 @@
 .box-container {
     width: 600px;
     height: 600px;
-    background-color: aqua;
+    background-color: steelblue;
     display: flex;
     justify-content: space-evenly;
     align-content: space-evenly;
@@ -20,11 +20,11 @@
 .box {
     width: 180px;
     height: 180px;
-    background-color: green;
+    background-color: mediumseagreen;
     border: 1px solid black;
 }
 
 
 .box.active {
-    background-color: yellow;
+    background-color: darkorchid;
 }
