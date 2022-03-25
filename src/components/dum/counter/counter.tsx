@@ -23,21 +23,21 @@ function Counter(props: CounterProps) {
     } = props
     const [count, setCount] = useState(initialCount)
 
-    function handleOnStart() {
-        if (count === initialCount && onStartCount !== undefined) {
-            onStartCount(count)
-        }
-    }
-
     useEffect(() => {
         const timerId = setTimeout(() => {
-            if (count > 0) {
+            if (count === initialCount) {
+                setCount(count - 1)
+
+                if (onStartCount !== undefined) {
+                    onStartCount(count)
+                }
+            } else if (count > 0) {
                 setCount(count - 1)
 
                 if (onChangeCount !== undefined) {
                     onChangeCount(count)
                 }
-            } else if (count === 0) {
+            } else if (count <= 0) {
                 if (onFinishCount !== undefined) {
                     onFinishCount()
                 }
@@ -52,10 +52,6 @@ function Counter(props: CounterProps) {
             clearTimeout(timerId)
         }
     }, [count])
-
-    useEffect(() => {
-        handleOnStart()
-    }, [])
 
     return (
         showText ?

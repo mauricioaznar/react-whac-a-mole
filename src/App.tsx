@@ -4,28 +4,42 @@ import CustomThemeProvider from "./components/views/custom-theme-provider";
 import {Box} from "@mui/material";
 import Counter from "./components/dum/counter/counter";
 
-const initialIntervalCount = 10
+const INITIAL_TICKS_COUNT = 10
+const TICKS_INTERVAL = 1000
+
+function generateIndex(): number {
+    return Math.floor(Math.random() * 9)
+}
 
 function App() {
     const [score, setScore] = useState(0)
     const [activeIndex, setActiveIndex] = useState<null | number>(null)
-    const [isFinished, setIsFinished] = useState(false)
-    const [transistor, setTransistor] = useState(initialIntervalCount)
+    const [isTimerFinished, setIsTimerFinished] = useState(false)
+    const [currentTickCount, setCurrentTickCount] = useState(INITIAL_TICKS_COUNT)
     const swtchRef = useRef<boolean>(false)
 
 
-    function handleInterval(count: number) {
-        setTransistor(count)
+    console.log('render')
+    console.log('activeIndex', activeIndex, 'currentTickCount', currentTickCount)
+    console.log('--------------------------------------------------------------')
 
-        if (!isFinished) {
+    function handleOnStartTicks(count: number) {
+        setActiveIndex(generateIndex())
+        setCurrentTickCount((prev) => prev - 1)
+        console.log('onStartCount', count, 'activeIndex', activeIndex, 'currentTickCount', currentTickCount)
+    }
+
+    function handleOnChangeTicks(count: number) {
+        setCurrentTickCount((prevState => prevState - 1))
+        console.log('onChangeCount', count, 'activeIndex', activeIndex, 'currentTickCount', currentTickCount)
+        if (!isTimerFinished) {
             if (swtchRef.current) {
-                setActiveIndex(Math.floor(Math.random() * 9))
+                setActiveIndex(generateIndex())
             } else {
                 setActiveIndex(null)
             }
             swtchRef.current = !swtchRef.current
         }
-
     }
 
     function handleBoxOnClick (boxIndex: number) {
@@ -35,8 +49,8 @@ function App() {
         }
     }
 
-    function handleOnFinish () {
-        setIsFinished(true)
+    function handleOnFinishTimer () {
+        setIsTimerFinished(true)
         setActiveIndex(null)
     }
 
@@ -44,10 +58,10 @@ function App() {
         <CustomThemeProvider>
             <Counter
                 showText={false}
-                onChangeCount={handleInterval}
-                onStartCount={handleInterval}
-                defaultInterval={500}
-                initialCount={initialIntervalCount}
+                onChangeCount={handleOnChangeTicks}
+                onStartCount={handleOnStartTicks}
+                defaultInterval={TICKS_INTERVAL}
+                initialCount={INITIAL_TICKS_COUNT}
             />
             <Box sx={{
                 position: "absolute",
@@ -55,8 +69,9 @@ function App() {
                 top: "10px",
             }}>
                 <Counter
-                    onFinishCount={handleOnFinish}
+                    onFinishCount={handleOnFinishTimer}
                     initialCount={5}
+                    defaultInterval={2000}
                 />
 
                 <Box>score { score } </Box>
